@@ -1,3 +1,9 @@
+There are few coding challanges. Once you are ready to show your solutions, please send me the invitation to your GitHub/Bitbucket repository. 
+We're waiting for your solutions until the next Monday (5th of February)
+
+Notice: every function should be covered by unit tests.
+
+Good luck!
 
 **Challenge #1**
 ```
@@ -39,7 +45,7 @@ find_uniq([ '     ', 'a', ' ' ] // a
 
 Strings may contain spaces. Spaces is not significant, only non-spaces symbols matters. E.g. string that contains only spaces is like empty string.
 
-It’s guaranteed that array contains more than 3 strings.
+Itï¿½s guaranteed that array contains more than 3 strings.
 
 
 **Challenge #4**
@@ -67,13 +73,3 @@ Your function is taking two parameters:
 Error handling:
 1. When term from given string is not available - throw an exception
 2. When given string is invalid(like e.g.: `value value` - without giving term` - throw an exception
-
-
-
-### Summary
-
-Once you are ready to show your solutions, please send me the invitation to your GitHub/Bitbucket repository. We're waiting for your solutions until the next Monday (5th of February)
-
-Notice: every function should be covered by unit tests.
-
-Good luck!
