@@ -39,7 +39,7 @@ find_uniq([ '     ', 'a', ' ' ] // a
 
 Strings may contain spaces. Spaces is not significant, only non-spaces symbols matters. E.g. string that contains only spaces is like empty string.
 
-Itâ€™s guaranteed that array contains more than 3 strings.
+It’s guaranteed that array contains more than 3 strings.
 
 
 **Challenge #4**
@@ -70,6 +70,7 @@ Error handling:
 
 
 
+### Summary
 
 Once you are ready to show your solutions, please send me the invitation to your GitHub/Bitbucket repository. We're waiting for your solutions until the next Monday (5th of February)
 
