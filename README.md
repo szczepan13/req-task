@@ -36,11 +36,11 @@ For an input: "is2 Thi1s T7est 4a" the function should return "Thi1s is2 4a T7es
 There is an array of strings. All strings contains similar letters except one. Try to find it!
 
 ```
-find_uniq([ 'Aa', 'aaa', 'aaaaa', 'BbBb', 'Aaaa', 'AaAaAa', 'a' ]); // => 'BbBb'
-find_uniq([ 'abc', 'acb', 'bac', 'foo', 'bca', 'cab', 'cba' ]); // => 'foo'
-find_uniq([ 'silvia', 'vasili', 'victor' ]; //victor
-find_uniq([ 'Tom Marvolo Riddle', 'I am Lord Voldemort', 'Harry Potter' ] // Harry Potter
-find_uniq([ '     ', 'a', ' ' ] // a
+findUnique([ 'Aa', 'aaa', 'aaaaa', 'BbBb', 'Aaaa', 'AaAaAa', 'a' ]); // => 'BbBb'
+findUnique([ 'abc', 'acb', 'bac', 'foo', 'bca', 'cab', 'cba' ]); // => 'foo'
+findUnique([ 'silvia', 'vasili', 'victor' ]; //victor
+findUnique([ 'Tom Marvolo Riddle', 'I am Lord Voldemort', 'Harry Potter' ] // Harry Potter
+findUnique([ '     ', 'a', ' ' ] // a
 ```
 
 Strings may contain spaces. Spaces is not significant, only non-spaces symbols matters. E.g. string that contains only spaces is like empty string.
@@ -50,13 +50,13 @@ It�s guaranteed that array contains more than 3 strings.
 
 **Challenge #4**
 
-Management wants to have some query searcher in their site. It looks like that:
+Management wants to have some query searcher in their site. When user will pass this kind of string:
 
 ```
 term:value term2:"value2" term3:"value value" term4:"value : value : value"
 ```
 
-what gives:
+he should get:
 ```
 [
 	"term" => "value",
@@ -67,9 +67,15 @@ what gives:
 ```
 
 Your function is taking two parameters:
-- array of available terms
+- array of available terms(like 'term', 'term2')
 - string to parse
 
 Error handling:
 1. When term from given string is not available - throw an exception
 2. When given string is invalid(like e.g.: `value value` - without giving term` - throw an exception
+
+Some examples:
+```
+parseSearchQuery(['term', 'term1'], 'term:value term2:"value2"'); // We're getting exception as used 'term2' is not available
+parseSearchQuery(['term', 'term2'], 'term:value term2:"value2:value test"'); // ["term" => "value", "term2" => "value2:value test"]
+```
