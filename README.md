@@ -1,5 +1,4 @@
 There are few coding challanges. Once you are ready to show your solutions, please send me the invitation to your GitHub/Bitbucket repository. 
-We're waiting for your solutions until the next Monday (5th of February)
 
 Notice: every function should be covered by unit tests.
 
@@ -45,37 +44,47 @@ findUnique([ '     ', 'a', ' ' ] // a
 
 Strings may contain spaces. Spaces is not significant, only non-spaces symbols matters. E.g. string that contains only spaces is like empty string.
 
-It�s guaranteed that array contains more than 3 strings.
+It's guaranteed that array contains more than 3 strings.
 
 
 **Challenge #4**
 
-Management wants to have some query searcher in their site. When user will pass this kind of string:
+Write an encoder/decoder library. It will take two arguments:
+- key - string should contains only unique letters(case sensitive) and digits
+- message - string to encode/decode (shouldn't shorter than key)
 
+At first create a new one numeric key while basing on a provided key by assigning each letter position in which it is located after setting the letters from key in a some kind of alphabetical order. Requested order looks like that (big letters, small letters, numbers):
+
+`2e1Ca` => `Cae12`
+
+For that sorted string key, we should get that numeric key:
+
+`Cae12` => `45231`
+
+That numbers are the initial positions of the pre-sorted `2e1Ca` string.
+
+Next you should encode our message with previously generated key.
+Let's try to encode `secretinformation` string then. Afterall, it will look like that:
+
+-- before encoding --
 ```
-term:value term2:"value2" term3:"value value" term4:"value : value : value"
+4 5 2 3 1
+---------
+s e c r e
+t i n f o
+r m a t i
+o n
 ```
 
-he should get:
+
+-- after encoding --
 ```
-[
-	"term" => "value",
-	"term2" => "value2",
-	"term3" => "value value",
-	"term4" => "value : value : value"
-]
+1 2 3 4 5
+---------
+e c r s e
+o n f t i
+i a t r m
+      o n
 ```
 
-Your function is taking two parameters:
-- array of available terms(like 'term', 'term2')
-- string to parse
-
-Error handling:
-1. When term from given string is not available - throw an exception
-2. When given string is invalid(like e.g.: `value value` - without giving term` - throw an exception
-
-Some examples:
-```
-parseSearchQuery(['term', 'term1'], 'term:value term2:"value2"'); // We're getting exception as used 'term2' is not available
-parseSearchQuery(['term', 'term2'], 'term:value term2:"value2:value test"'); // ["term" => "value", "term2" => "value2:value test"]
-```
+So the result for message `secretinformation` and key `2e1Ca` is `ecrseonftiiatrm   on`
