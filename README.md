@@ -50,10 +50,11 @@ It's guaranteed that array contains more than 3 strings.
 **Challenge #4**
 
 Write an encoder/decoder library. It will take two arguments:
+
 - key - string should contains only unique letters(case sensitive) and digits
 - message - string to encode/decode (shouldn't shorter than key)
 
-At first create a new one numeric key while basing on a provided key by assigning each letter position in which it is located after setting the letters from key in a some kind of alphabetical order. Requested order looks like that (big letters, small letters, numbers):
+At first create a numeric key while basing on a provided key by assigning each letter position in which it is located after setting the letters from key in a some kind of alphabetical order. Requested order looks like that (big letters, small letters, numbers):
 
 `2e1Ca` => `Cae12`
 
@@ -87,4 +88,4 @@ i a t r m
       o n
 ```
 
-So the result for message `secretinformation` and key `2e1Ca` is `ecrseonftiiatrm   on`
+So the result for message `secretinformation` and key `2e1Ca` is `ecrseonftiiatrm   on` (there are three spaces instead of one visible, bitbucket is cutting it)
