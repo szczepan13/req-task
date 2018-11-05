@@ -52,7 +52,7 @@ It's guaranteed that array contains more than 3 strings.
 Write an encoder/decoder library. It will take two arguments:
 
 - key - string should contains only unique letters(case sensitive) and digits
-- message - string to encode/decode (shouldn't shorter than key)
+- message - string to encode/decode (shouldn't be shorter than key)
 
 At first create a numeric key while basing on a provided key by assigning each letter position in which it is located after setting the letters from key in a some kind of alphabetical order. Requested order looks like that (big letters, small letters, numbers):
 
