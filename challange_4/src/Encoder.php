@@ -8,54 +8,37 @@
 
 namespace Challange;
 
-
 class Encoder
 {
-
     private $numericKey;
     private $message;
 
-    public function __construct($key)
+    public function __construct($key, $message, Validator $validator, KeyHelper $keyHelper)
     {
-        $this->initializeKey($key);
-    }
-
-    private function initializeKey($key)
-    {
-        $keySplited = str_split($key);
-        uasort($keySplited, array($this, 'compare'));
-        foreach ($keySplited as $key => $item) {
-            $this->numericKey .= $key + 1;
-        }
-    }
-
-    private function compare($a, $b)
-    {
-        if(ctype_upper($a) && (ctype_lower($b) || ctype_alnum($b)) ){
-            return -1;
-        }
-        if(ctype_alnum($a) && (ctype_lower($b) || ctype_upper($b)) ){
-            return 1;
-        }
-        if(ctype_lower($a) && ctype_alnum($b)){
-            return -1;
-        }
-        if(ctype_lower($a) && ctype_upper($b)){
-            return 1;
-        }
-        return $a <=> $b;
-    }
-
-    public function validateMessage()
-    {
-
-    }
-
-    public function processMessage($message)
-    {
-
         $this->message = $message;
+        $validator->validate($key, $message);
+        $this->numericKey = $keyHelper->toNumeric($key);
     }
-}
 
-$en = new Encoder("2e1Ca");
+    public function encodeMessage($message, $key)
+    {
+        $encodedMessage = "";
+        $sizeOfKey = strlen($key);
+        $y = 0;
+        for($i = 0; $i < strlen($message); $i++){
+            $index = $i % $sizeOfKey;
+            if($index == 0){
+                $y++;
+            }
+            $numericKey = $key;
+            $encodedMessage[$numericKey[$index] + $y * $sizeOfKey] = $message[$i];
+        }
+        return $encodedMessage;
+    }
+
+    public function encode()
+    {
+       return $this->encodeMessage($this->message, $this->numericKey);
+    }
+
+}
