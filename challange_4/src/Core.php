@@ -18,11 +18,11 @@ class Core
 {
     /**
      * Decodes message using key
-     * @param $key
-     * @param $message
+     * @param string $key
+     * @param string $message
      * @return string
      */
-    public static function decode($key, $message)
+    public static function decode(string $key, string $message)
     {
         try{
             $dec = new Decoder($key, $message, new Validator());
@@ -38,7 +38,7 @@ class Core
      * @param $message
      * @return string
      */
-    public static function encode($key, $message)
+    public static function encode(string $key, string $message)
     {
         try{
             $enc = new Encoder($key, $message, new Validator());
