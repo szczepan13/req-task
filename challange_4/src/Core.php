@@ -49,10 +49,7 @@ class Core
     }
 }
 
+/** basic usage example */
+echo Core::encode("2e1Ca", "secretinformation");
+echo Core::decode("2e1Ca", "ecrseonftiiatrm   on");
 
-$decode = Core::encode("2e1Ca", "secretinformation");
-$encode = Core::decode("2e1Ca", "ecrseonftiiatrm   on");
-
-
-echo $decode;
-echo $encode;
