@@ -1,44 +1,44 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: szczepan
- * Date: 06.11.18
- * Time: 00:11
  */
 
 namespace Challange;
 
-class Encoder
+class Encoder implements EncoderInterface
 {
+    use KeyHelper;
+
     private $numericKey;
     private $message;
 
-    public function __construct($key, $message, Validator $validator, KeyHelper $keyHelper)
+    public function __construct(string $key, string $message, ValidatorInterface $validator)
     {
         $this->message = $message;
-        $validator->validate($key, $message);
-        $this->numericKey = $keyHelper->toNumeric($key);
+        if($errors = $validator->validate($key, $message) !== true){
+            throw new \InvalidArgumentException(implode("\n", $errors));
+        }
+        $this->numericKey = $this->toNumeric($key);
     }
 
-    public function encodeMessage($message, $key)
+    public function encode()
+    {
+        return $this->encodeMessage($this->message, $this->numericKey);
+    }
+
+    private function encodeMessage(string $message, string $key)
     {
         $encodedMessage = "";
         $sizeOfKey = strlen($key);
         $y = 0;
         for($i = 0; $i < strlen($message); $i++){
-            $index = $i % $sizeOfKey;
-            if($index == 0){
+            $line = $i % $sizeOfKey;
+            if($line == 0 && $i >= $sizeOfKey){
                 $y++;
             }
-            $numericKey = $key;
-            $encodedMessage[$numericKey[$index] + $y * $sizeOfKey] = $message[$i];
+            /* This shift -1 is due to difference in numeric key position and internal php implementation
+             * One starts at 0 the other with 1 */
+            $encodedMessage[($key[$line]-1) + $y * $sizeOfKey] = $message[$i];
         }
         return $encodedMessage;
     }
-
-    public function encode()
-    {
-       return $this->encodeMessage($this->message, $this->numericKey);
-    }
-
 }

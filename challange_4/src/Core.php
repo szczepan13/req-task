@@ -13,15 +13,13 @@ class Core implements CoreInterface
 {
     public static function decode($key, $message)
     {
-        $validator = new Validator();
-        $dec = new Decoder($key, $message, $validator);
+        $dec = new Decoder($key, $message, new Validator());
         return $dec->decode();
     }
 
     public static function encode($key, $message)
     {
-        $validator = new Validator();
-        $enc = new Encoder($key, $message, $validator);
+        $enc = new Encoder($key, $message, new Validator());
         return $enc->encode();
     }
 

@@ -9,32 +9,60 @@
 namespace Challange;
 
 
+use phpDocumentor\Reflection\DocBlock\Tags\Param;
+
 class Validator
 {
-    private static $rules = ["checkLength", "checkUnique"];
+
+    private $errors;
+    private static $rules = ["checkLength", "checkUnique", "checkAlnum"];
+
+    public function __construct($rules = array())
+    {
+        if(!empty($rules)){
+            self::$rules = $rules;
+        }
+    }
 
     public function validate($key, $message)
     {
         foreach(self::$rules as $rule){
-            $this->$rule($key, $message);
+            if (!method_exists($this, $rule)) {
+                throw new Exception("Method {$rule} does not exist");
+                exit;
+            }
+            if($response = user_call_func($rule, $this, $key, $message) !== true){
+                $this->errors[] = $response;
+            }
         }
+        return empty($this->errors) ? true : $this->errors;
     }
 
     private function checkLenght($key, $message)
     {
         if(strlen($message) < strlen($key)){
-            throw new \InvalidArgumentException("Key should be longer then the message.");
+            return "Key should be longer then the message.";
         }
+        return true;
     }
 
-    private function checkUnique($key, $message)
+    private function checkUnique($key)
     {
-        if ($this->checkStringUnique($this->key)) {
-            throw new \InvalidArgumentException("Key does not contain unique chars.");
+        if(!$this->checkStringUnique($key)) {
+            return "Key does not contain unique chars.";
         }
+        return true;
     }
 
-    private function checkStringUnique($key, $message)
+    private function checkAlnum($key)
+    {
+        if(ctype_alnum($key)){
+            return "Key cointains special chars";
+        }
+        return true;
+    }
+
+    private function checkStringUnique($string)
     {
         $uniqueString = implode("", array_unique(str_split($string)));
         return strlen($uniqueString) == $string;

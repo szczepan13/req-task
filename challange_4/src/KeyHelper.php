@@ -8,7 +8,7 @@
 
 namespace Challange;
 
-class KeyHelper
+Trait KeyHelper
 {
     public function toNumeric($key)
     {

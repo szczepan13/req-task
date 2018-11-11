@@ -9,7 +9,7 @@
 namespace Challange;
 
 
-interface EncoderInterface
+interface DecoderInterface
 {
-    public function encode();
+    public function decode();
 }
