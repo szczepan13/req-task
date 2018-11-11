@@ -86,7 +86,7 @@ class Validator implements ValidatorInterface
     private function checkAlnum($key)
     {
         if(!ctype_alnum($key)){
-            return "Key contains special chars";
+            return "Key contains special chars.";
         }
         return true;
     }
