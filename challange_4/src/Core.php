@@ -1,38 +1,58 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: szczepan
- * Date: 07.11.18
- * Time: 00:28
+ * @author Szczepan Slezak
+ */
+namespace Challenge;
+
+require './vendor/autoload.php';
+
+/**
+ * Core class and wrapper to decode and encode classes,
+ * providing dependecy injection of validator class as well
+ * as wrapping exception for convenient output.
+ * Class Core
+ * @package Challenge
  */
 
-namespace Challange;
-
-
-class Core implements CoreInterface
+class Core
 {
+    /**
+     * Decodes message using key
+     * @param $key
+     * @param $message
+     * @return string
+     */
     public static function decode($key, $message)
     {
-        $dec = new Decoder($key, $message, new Validator());
-        return $dec->decode();
+        try{
+            $dec = new Decoder($key, $message, new Validator());
+            return $dec->decode();
+        }catch (\Exception $exception){
+            echo $exception->getMessage() . "\n";
+        }
     }
 
+    /**
+     * Encodes message using key
+     * @param $key
+     * @param $message
+     * @return string
+     */
     public static function encode($key, $message)
     {
-        $enc = new Encoder($key, $message, new Validator());
-        return $enc->encode();
+        try{
+            $enc = new Encoder($key, $message, new Validator());
+            return $enc->encode();
+        }catch (\Exception $exception){
+            echo $exception->getMessage() . "\n";
+        }
     }
-
 }
 
 
-
 $decode = Core::encode("2e1Ca", "secretinformation");
-
 $encode = Core::decode("2e1Ca", "ecrseonftiiatrm   on");
 
 
-
-var_dump($decode);
-
-var_dump($encode);
+echo $decode;
+echo $encode;

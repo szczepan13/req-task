@@ -1,15 +1,22 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: szczepan
- * Date: 07.11.18
- * Time: 00:58
+ * @author Szczepan Slezak
  */
 
-namespace Challange;
+namespace Challenge;
 
+/**
+ * Provides to conversion to numeric for decoder and encoder
+ * Trait KeyHelper
+ * @package Challenge
+ */
 Trait KeyHelper
 {
+    /**
+     * Takes the key and converts to numeric
+     * @param $key
+     * @return string
+     */
     public function toNumeric($key)
     {
         $numericKey = "";
@@ -21,6 +28,12 @@ Trait KeyHelper
         return $numericKey;
     }
 
+    /**
+     * Custom sort function
+     * @param $a
+     * @param $b
+     * @return int
+     */
     private function compare($a, $b)
     {
         if(ctype_upper($a) && (ctype_lower($b) || ctype_alnum($b)) ){

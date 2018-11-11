@@ -1,14 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: szczepan
- * Date: 10.11.18
- * Time: 23:39
+ * @author Szczepan Slezak
  */
 
-namespace Challange;
+namespace Challenge;
 
-
+/**
+ * Interface ValidatorInterface
+ * @package Challenge
+ */
 interface ValidatorInterface
 {
     public function validate($key, $message);

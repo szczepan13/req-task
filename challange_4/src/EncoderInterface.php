@@ -1,14 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: szczepan
- * Date: 07.11.18
- * Time: 01:26
+ * @author Szczepan Slezak
  */
 
-namespace Challange;
+namespace Challenge;
 
-
+/**
+ * Interface EncoderInterface
+ * @package Challenge
+ */
 interface EncoderInterface
 {
     public function encode();

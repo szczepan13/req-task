@@ -1,30 +1,64 @@
 <?php
 /**
+ * @author Szczepan Slezak
  */
+namespace Challenge;
 
-namespace Challange;
-
+/**
+ * Encodes message using key
+ * Class Encoder
+ * @package Challenge
+ */
 class Encoder implements EncoderInterface
 {
+    /**
+     * Trait KeyHelper helps encode key to numeric form
+     */
     use KeyHelper;
 
+    /**
+     * Numeric representation of key
+     * @var string
+     */
     private $numericKey;
+
+    /**
+     * Message to encode
+     * @var string
+     */
     private $message;
 
+    /**
+     * Encoder constructor.
+     * @param string $key
+     * @param string $message
+     * @param ValidatorInterface $validator
+     */
     public function __construct(string $key, string $message, ValidatorInterface $validator)
     {
         $this->message = $message;
-        if($errors = $validator->validate($key, $message) !== true){
+        $errors = $validator->validate($key, $message);
+        if($errors !== true){
             throw new \InvalidArgumentException(implode("\n", $errors));
         }
         $this->numericKey = $this->toNumeric($key);
     }
 
+    /**
+     * Wrapper to encodeMessage
+     * @return string
+     */
     public function encode()
     {
         return $this->encodeMessage($this->message, $this->numericKey);
     }
 
+    /**
+     * Encodes message using key
+     * @param string $message
+     * @param string $key
+     * @return string
+     */
     private function encodeMessage(string $message, string $key)
     {
         $encodedMessage = "";

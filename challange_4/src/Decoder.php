@@ -1,35 +1,71 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: szczepan
- * Date: 07.11.18
- * Time: 00:29
+ * @author Szczepan Slezak
  */
 
-namespace Challange;
+namespace Challenge;
 
+/**
+ * Decodes message using key
+ * Class Decoder
+ * @package Challenge
+ */
 class Decoder implements DecoderInterface
 {
+    /**
+     * Trait KeyHelper helps encode key to numeric form
+     */
     use KeyHelper;
 
+    /**
+     * If set to true trims the end message of extra spaces
+     * @var bool
+     */
     private static $IGNORE_SPACES_AT_THE_END = true;
+
+    /**
+     * Numeric representation of key
+     * @var string
+     */
     private $numericKey;
+
+    /**
+     * Message to decode
+     * @var string
+     */
     private $message;
 
+    /**
+     * Decoder constructor.
+     * @param string $key
+     * @param string $message
+     * @param ValidatorInterface $validator
+     */
     public function __construct(string $key, string $message, ValidatorInterface $validator)
     {
         $this->message = $message;
-        if($errors = $validator->validate($key, $message) !== true){
+        $errors = $validator->validate($key, $message);
+        if($errors !== true){
             throw new \InvalidArgumentException(implode("\n", $errors));
         }
         $this->numericKey = $this->toNumeric($key);
     }
 
+    /**
+     * Wrapper to decodeMessage
+     * @return string
+     */
     public function decode()
     {
         return $this->decodeMessage($this->message, $this->numericKey);
     }
 
+    /**
+     * Decodes the message
+     * @param string $message
+     * @param string $key
+     * @return string
+     */
     private function decodeMessage(string $message, string $key)
     {
         $decodedMessage = "";
